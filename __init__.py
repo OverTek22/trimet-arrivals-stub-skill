@@ -7,7 +7,17 @@ class TrimetArrivalsStub(MycroftSkill):
 
     @intent_file_handler('stub.arrivals.trimet.intent')
     def handle_stub_arrivals_trimet(self, message):
-        self.speak_dialog('stub.arrivals.trimet')
+        self.speak_dialog('which.stop')
+    
+    @intent_handler('stop.3051.intent')
+    def handle_stop_3051(self, message):
+        # stub file for stop 3051
+        self.speak_dialog('stop.3051')
+    
+    @intent_handler('stop.11771.intent')
+    def handle_stop_11771(self, message):
+        # stub file for stop 11771
+        self.speak_dialog('stop.11771')
 
 
 def create_skill():
