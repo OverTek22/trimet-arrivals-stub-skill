@@ -39,6 +39,17 @@ for elem in schedules:
         "name": busName.strip(),
         "arrivals": arrivalTimes
     }
+    
+     # Get the alerts from the website as well
+    alerts = soup.find("div", {"id": "alerts"})
+    for elem in alerts:
+        busID = elem.select('b')
+        alert = busID.next_sibling.strip()
+    
+    # psuedocode which adds the alert to a bus's info dictionary if the bus id matches those listed in the alert
+        if busID in info:
+            info["alert"] = alert
+
     bus_lines.append(info)
 
 print(bus_lines)
