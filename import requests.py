@@ -14,7 +14,7 @@ arg = "&sort=destination"
 page = requests.get(
     "https://trimet.org/ride/stop_schedule.html?stop_id=3051&sort=destination")
 soup = BeautifulSoup(page.content, 'html.parser')
-
+#print(soup.prettify())
 
 '''
 <div class="scheduletimes">
@@ -41,5 +41,16 @@ for elem in schedules:
         "arrivals": arrivalTimes
     }
     bus_lines.append(info)
+    info2 = info
+# Get the alerts from the website as well
+alerts = soup.select('img')
+for elem in alerts:
+    busID = elem.select('b')
+
+    alert = elem.text.strip()
+    print(alert)
+# psuedocode which adds the alert to a bus's info dictionary if the bus id matches those listed in the alert
+#   if busID in info2:
+#        info2["alert"] = alert    
 
 print(bus_lines)
