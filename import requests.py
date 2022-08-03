@@ -29,7 +29,6 @@ soup = BeautifulSoup(page.content, 'html.parser')
 '''
 # Create top_items as empty list
 bus_lines = {}  # List of dictionaries for the buses passing through this stop
-alertList = [] # List of dictionaries for alerts - mimicing buslines
 
 # Extract and store in top_items according to instructions on the left
 schedules = soup.select('div.scheduletimes')
@@ -60,7 +59,7 @@ for elem in schedules:
 
 # Get the alerts from the website as well
 alertTextBlock = soup.select_one("div#alerts").text
-print(alertTextBlock)
+# print(alertTextBlock)
 alerts = alertTextBlock.split("\n\n")
 for alert in alerts:
     info2 = {}  # Temporary dictionary to store id number and text for alerts
@@ -70,17 +69,12 @@ for alert in alerts:
     
     else:
         alert.replace("\n", "")
-        #print(alert)
-        #print("******")
-        
         alertParts = alert.partition(":  ")
+        
         busID = alertParts[0]   # list of bus ids which have this alert
         busID = busID.replace("\n", "")
-        alertInfo = alertParts[2] # text containing the actual alert
-        
-        # add alert to list of alerts
-        alertList.append(alertInfo)
        
+        alertInfo = alertParts[2] # text containing the actual alert
         
        # split the string of ids into a list of ids
         busIDS = busID.split(", ")
@@ -89,35 +83,13 @@ for alert in alerts:
             if ID in bus_lines: # add the alert if the bus goes to the stop
                 if "Alerts" not in bus_lines[ID]:
                     bus_lines[ID]["Alerts"] = []
-                    bus_lines[ID]["Alerts"].append(alertList[-1])
+                    bus_lines[ID]["Alerts"].append(alertInfo)
                 else:
-                    bus_lines[ID]["Alerts"].append(alertList[-1])
-            #alertList.append(info2)
-    
-
-#print(alertList)
-
-
-
-# Alternate method to get alerts (not done)
-alerts2 = soup.select("img[src='//trimet.org/global/img/icon-alert.png']")
-for alert in alerts:
-    '''
-    busID = elem.select('b')
-    alert = elem.text.strip()
-    print(alert)
-    print(busID)
-    print("******")
-    '''
-# psuedocode which adds the alert to a bus's info dictionary if the bus id matches those listed in the alert
-#   if busID in info2:
-#        info2["alert"] = alert    
-
-'''
-for i in bus_lines["6"]["Alerts"]:
+                    bus_lines[ID]["Alerts"].append(alertInfo)
+   
+for i in bus_lines:
     print(i)
-    print()
-'''
-for i in alertList:
-    #print(i)
-    print()
+
+#print(bus_lines)
+# Example of user asking for line 45
+print(bus_lines["45"]["Arrivals"])
