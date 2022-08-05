@@ -17,12 +17,12 @@ class TrimetArrivalsStub(MycroftSkill):
         # Using the stop ID passed in, get schedules sorted by destinations
         stop_url = "{}?stop_id={}&sort=destination".format(url, 3051)
 
-        self.speak("requesting url")
+        self.log.info("requesting url")
         # Make a request
         page = requests.get(stop_url)
         soup = BeautifulSoup(page.content, 'html.parser')
         #print(soup.prettify())
-        self.speak("good request")
+        self.log.info("good request")
         # Create top_items as empty list
         bus_lines = {}  # List of dictionaries for the buses passing through this stop
 
@@ -43,7 +43,7 @@ class TrimetArrivalsStub(MycroftSkill):
 
             buses = elem.select('ul.sortbydestination')
             arrivalTimes = [] # List to contain arrival times for this bus
-            self.speak("Getting times")
+            self.log.info("Getting times")
             for bus in buses:
                 arrivalTime = bus.select('span')
                 for time in arrivalTime:
@@ -54,7 +54,7 @@ class TrimetArrivalsStub(MycroftSkill):
             bus_lines[descriptionParts[0]] = info
 
 
-        self.speak("Getting alerts")
+        self.log.info("Getting alerts")
         # Get the alerts from the website as well
         alertTextBlock = soup.select_one("div#alerts").text
         # print(alertTextBlock)
