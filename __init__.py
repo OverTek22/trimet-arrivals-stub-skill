@@ -95,7 +95,7 @@ class TrimetArrivalsStub(MycroftSkill):
     
     @intent_handler('stop.11771.intent')
     def handle_stop_11771(self, message):
-        
+        get_arrivals(11771)    # get the arrivals for given stop
         self.speak_dialog('stop.11771')
 
 
