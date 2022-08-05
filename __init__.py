@@ -132,38 +132,40 @@ class TrimetArrivalsStub(MycroftSkill):
 
 
         # Get the alerts from the website as well
-        alertTextBlock = soup.select_one("div#alerts").text
-        # print(alertTextBlock)
-        alerts = alertTextBlock.split("\n\n")
-        for alert in alerts:
-            info2 = {}  # Temporary dictionary to store id number and text for alerts
+        try:
+            alertTextBlock = soup.select_one("div#alerts").text
+            # print(alertTextBlock)
+            alerts = alertTextBlock.split("\n\n")
+            for alert in alerts:
+                info2 = {}  # Temporary dictionary to store id number and text for alerts
 
-            if len(alert) == 0:
-                pass
+                if len(alert) == 0:
+                    pass
 
-            else:
-                alert.replace("\n", "")
-                alertParts = alert.partition(":  ")
+                else:
+                    alert.replace("\n", "")
+                    alertParts = alert.partition(":  ")
 
-                busID = alertParts[0]   # list of bus ids which have this alert
-                busID = busID.replace("\n", "")
+                    busID = alertParts[0]   # list of bus ids which have this alert
+                    busID = busID.replace("\n", "")
 
-                alertInfo = alertParts[2] # text containing the actual alert
+                    alertInfo = alertParts[2] # text containing the actual alert
 
-               # split the string of ids into a list of ids
-                busIDS = busID.split(", ")
-                for ID in busIDS:
-                    #print("--" + ID)
-                    if ID in bus_lines: # add the alert if the bus goes to the stop
-                        if "Alerts" not in bus_lines[ID]:
-                            bus_lines[ID]["Alerts"] = []
-                            bus_lines[ID]["Alerts"].append(alertInfo)
-                        else:
-                            bus_lines[ID]["Alerts"].append(alertInfo)
+                   # split the string of ids into a list of ids
+                    busIDS = busID.split(", ")
+                    for ID in busIDS:
+                        #print("--" + ID)
+                        if ID in bus_lines: # add the alert if the bus goes to the stop
+                            if "Alerts" not in bus_lines[ID]:
+                                bus_lines[ID]["Alerts"] = []
+                                bus_lines[ID]["Alerts"].append(alertInfo)
+                            else:
+                                bus_lines[ID]["Alerts"].append(alertInfo)
 
-        # Example of user asking for line 47
-        self.speak_dialog('speak.string', {'intro': "The next bus arrives at", 'stuff': bus_lines["47"]["Arrivals"][2]})
-        # self.speak_dialog('stop.11771')
+        finally:
+            # Example of user asking for line 47
+            self.speak_dialog('speak.string', {'intro': "The next bus arrives at", 'stuff': bus_lines[0]["Arrivals"][0]})
+            # self.speak_dialog('stop.11771')
 
 
 def create_skill():
