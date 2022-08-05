@@ -86,7 +86,7 @@ class TrimetArrivalsStub(MycroftSkill):
                             bus_lines[ID]["Alerts"].append(alertInfo)
 
         # Example of user asking for line 45
-        self.speak_dialog('speak.string', {'stuff': bus_lines["45"]["Arrivals"]})
+        self.speak_dialog('speak.string', {'intro': "Here is the schedule for the line 45 bus", 'stuff': bus_lines["45"]["Arrivals"]})
         # self.speak_dialog('stop.3051')
     
     @intent_handler('stop.11771.intent')
@@ -162,7 +162,7 @@ class TrimetArrivalsStub(MycroftSkill):
                             bus_lines[ID]["Alerts"].append(alertInfo)
 
         # Example of user asking for line 47
-        self.speak_dialog('speak.string', {'stuff': bus_lines["47"]["Arrivals"]})
+        self.speak_dialog('speak.string', {'intro': "The next bus arrives at", 'stuff': bus_lines["47"]["Arrivals"][2]})
         # self.speak_dialog('stop.11771')
 
 
