@@ -84,10 +84,6 @@ class TrimetArrivalsStub(MycroftSkill):
                             bus_lines[ID]["Alerts"].append(alertInfo)
                         else:
                             bus_lines[ID]["Alerts"].append(alertInfo)
-        outputSentance = "There are %d buses going through this stop. They are: " % (len(bus_lines)
-        self.speak(outputSentance)
-        for bus in bus_lines:
-            self.speak(bus_lines[bus])
 
         # Example of user asking for line 45
         self.speak_dialog('speak.string', {'stuff': bus_lines["45"]["Arrivals"]})
@@ -166,8 +162,8 @@ class TrimetArrivalsStub(MycroftSkill):
                             bus_lines[ID]["Alerts"].append(alertInfo)
 
         # Example of user asking for line 47
-        # self.speak_dialog('speak.string', {'stuff': bus_lines["47"]["Arrivals"]})
-        self.speak_dialog('stop.11771')
+        self.speak_dialog('speak.string', {'stuff': bus_lines["47"]["Arrivals"]})
+        # self.speak_dialog('stop.11771')
 
 
 def create_skill():
