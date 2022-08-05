@@ -1,11 +1,5 @@
 from mycroft import MycroftSkill, intent_handler
 
-from mycroft.util.parse import match_one
-#from mycroft.util.parse import fuzzy_match
-import mycroft.util
-from mycroft.audio import wait_while_speaking
-
-
 class TrimetArrivalsStub(MycroftSkill):
     def __init__(self):
         MycroftSkill.__init__(self)
