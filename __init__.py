@@ -1,4 +1,6 @@
 from mycroft import MycroftSkill, intent_handler
+import requests
+from bs4 import BeautifulSoup
 
 class TrimetArrivalsStub(MycroftSkill):
     def __init__(self):
