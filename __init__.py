@@ -94,7 +94,7 @@ class TrimetArrivalsStub(MycroftSkill):
         # Base url
         url = "https://trimet.org/ride/stop_schedule.html"
         # Using the stop ID passed in, get schedules sorted by destinations
-        stop_url = "{}?stop_id={}&sort=destination".format(url, 11771)
+        stop_url = "{}?stop_id={}&sort=destination".format(url, 10764)
 
         # Make a request
         page = requests.get(stop_url)
