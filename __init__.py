@@ -14,7 +14,7 @@ class TrimetArrivalsStub(MycroftSkill):
         # Base url
         url = "https://trimet.org/ride/stop_schedule.html"
         # Using the stop ID passed in, get schedules sorted by destinations
-        stop_url = "{}?stop_id={}&sort=destination".format(url,stopID)
+        stop_url = "{}?stop_id={}&sort=destination".format(url, stopID)
         
         # Make a request
         page = requests.get(stop_url)
@@ -82,7 +82,7 @@ class TrimetArrivalsStub(MycroftSkill):
                             bus_lines[ID]["Alerts"].append(alertInfo)
 
         # Example of user asking for line 45
-        self.speak_dialog('speak.string', bus_lines["45"]["Arrivals"])
+        self.speak_dialog('speak.string', {'stuff': bus_lines["45"]["Arrivals"]})
 
     @intent_handler('stub.arrivals.trimet.intent')
     def handle_stub_arrivals_trimet(self, message):
