@@ -21,6 +21,7 @@ class TrimetArrivalsStub(MycroftSkill):
             # Using the stop ID passed in, get schedules sorted by destinations
             stop_url = "{}?stop_id={}&sort=destination".format(url, 3051)
 
+            self.speak("requesting url")
             # Make a request
             page = requests.get(stop_url)
             soup = BeautifulSoup(page.content, 'html.parser')
@@ -56,6 +57,7 @@ class TrimetArrivalsStub(MycroftSkill):
                 bus_lines[descriptionParts[0]] = info
 
 
+            self.speak("Getting alerts")
             # Get the alerts from the website as well
             alertTextBlock = soup.select_one("div#alerts").text
             # print(alertTextBlock)
@@ -87,7 +89,8 @@ class TrimetArrivalsStub(MycroftSkill):
                                 bus_lines[ID]["Alerts"].append(alertInfo)
 
             # Example of user asking for line 45
-            self.speak_dialog('speak.string', {'stuff': bus_lines["45"]["Arrivals"]})
+            output_sentence = bus_lines["45"]["Arrivals"]
+            self.speak_dialog('speak.string', {'stuff': output_sentence})
 
         # self.speak_dialog('stop.3051')
     
