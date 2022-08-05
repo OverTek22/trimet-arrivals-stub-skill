@@ -22,7 +22,7 @@ class TrimetArrivalsStub(MycroftSkill):
         page = requests.get(stop_url)
         soup = BeautifulSoup(page.content, 'html.parser')
         #print(soup.prettify())
-
+        self.speak("good request")
         # Create top_items as empty list
         bus_lines = {}  # List of dictionaries for the buses passing through this stop
 
@@ -43,6 +43,7 @@ class TrimetArrivalsStub(MycroftSkill):
 
             buses = elem.select('ul.sortbydestination')
             arrivalTimes = [] # List to contain arrival times for this bus
+            self.speak("Getting times")
             for bus in buses:
                 arrivalTime = bus.select('span')
                 for time in arrivalTime:
