@@ -163,8 +163,9 @@ class TrimetArrivalsStub(MycroftSkill):
                                 bus_lines[ID]["Alerts"].append(alertInfo)
 
         finally:
+            BusID = list(bus_lines.keys())[0]
             # Example of user asking for line 47
-            self.speak_dialog('speak.string', {'intro': "The next bus arrives at", 'stuff': bus_lines[0]["Arrivals"][0]})
+            self.speak_dialog('speak.string', {'intro': "The next bus arrives at", 'stuff': bus_lines[BusID]["Arrivals"][0]})
             # self.speak_dialog('stop.11771')
 
 
