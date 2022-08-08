@@ -26,7 +26,7 @@ class TrimetArrivalsStub(MycroftSkill):
         self.log.info(message.data.keys())
         
         utterance = message.data.get('utterance')
-	    num = int(extract_number(utterance))
+	num = int(extract_number(utterance))
         self.log.info(num)
         
         # Base url
@@ -71,6 +71,10 @@ class TrimetArrivalsStub(MycroftSkill):
             bus_lines[descriptionParts[0]] = info
 
 
+        # Example of user asking for line 45
+        self.speak_dialog('speak.string', {'intro': "Here is the schedule for the line 45 bus", 'stuff': bus_lines["45"]["Arrivals"]})
+        # self.speak_dialog('stop.3051')
+        
         self.log.info("Getting alerts")
         # Get the alerts from the website as well
         alertTextBlock = soup.select_one("div#alerts").text
@@ -103,7 +107,7 @@ class TrimetArrivalsStub(MycroftSkill):
                             bus_lines[ID]["Alerts"].append(alertInfo)
 
         # Example of user asking for line 45
-        self.speak_dialog('speak.string', {'intro': "Here is the schedule for the line 45 bus", 'stuff': bus_lines["45"]["Arrivals"]})
+        self.speak_dialog('speak.string', {'intro': "The alerts for the 45 bus are", 'stuff': bus_lines["45"]["Arrivals"]})
         # self.speak_dialog('stop.3051')
     
     @intent_handler('stop.11771.intent')
@@ -149,7 +153,11 @@ class TrimetArrivalsStub(MycroftSkill):
             info["Arrivals"] = arrivalTimes[:]
             bus_lines[descriptionParts[0]] = info
 
-
+        BusID = list(bus_lines.keys())[0]
+        # Example of user asking for line 47
+        self.speak_dialog('speak.string', {'intro': "The next bus arrives at", 'stuff': bus_lines[BusID]["Arrivals"][0]})
+        # self.speak_dialog('stop.11771')
+        
         # Get the alerts from the website as well
         try:
             alertTextBlock = soup.select_one("div#alerts").text
@@ -184,7 +192,7 @@ class TrimetArrivalsStub(MycroftSkill):
         finally:
             BusID = list(bus_lines.keys())[0]
             # Example of user asking for line 47
-            self.speak_dialog('speak.string', {'intro': "The next bus arrives at", 'stuff': bus_lines[BusID]["Arrivals"][0]})
+            self.speak_dialog('speak.string', {'intro': "The alerts for this bus are", 'stuff': bus_lines[BusID]["Arrivals"][0]})
             # self.speak_dialog('stop.11771')
     
 
