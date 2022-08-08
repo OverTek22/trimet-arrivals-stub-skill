@@ -26,7 +26,7 @@ class TrimetArrivalsStub(MycroftSkill):
         self.log.info(message.data.keys())
         
         utterance = message.data.get('utterance')
-	num = int(extract_number(utterance))
+	    num = int(extract_number(utterance))
         self.log.info(num)
         
         # Base url
@@ -38,8 +38,10 @@ class TrimetArrivalsStub(MycroftSkill):
         # Make a request
         page = requests.get(stop_url)
         soup = BeautifulSoup(page.content, 'html.parser')
+        
         #print(soup.prettify())
         self.log.info("good request")
+        
         # Create top_items as empty list
         bus_lines = {}  # List of dictionaries for the buses passing through this stop
 
@@ -66,11 +68,11 @@ class TrimetArrivalsStub(MycroftSkill):
                 for time in arrivalTime:
                     arrivalTimes.append(time.text.strip())
 
-
+            # Once the arrivals list is done, add that to the dictionary
             info["Arrivals"] = arrivalTimes[:]
-            bus_lines[descriptionParts[0]] = info
+            bus_lines[descriptionParts[0]] = info # Add this bus's dictionary to the bus line dictionary with its ID as the key 
 
-
+        # After all of the buses have been added to the bus line dictionary
         # Example of user asking for line 45
         self.speak_dialog('speak.string', {'intro': "Here is the schedule for the line 45 bus", 'stuff': bus_lines["45"]["Arrivals"]})
         # self.speak_dialog('stop.3051')
@@ -148,7 +150,6 @@ class TrimetArrivalsStub(MycroftSkill):
                 arrivalTime = bus.select('span')
                 for time in arrivalTime:
                     arrivalTimes.append(time.text.strip())
-
 
             info["Arrivals"] = arrivalTimes[:]
             bus_lines[descriptionParts[0]] = info
