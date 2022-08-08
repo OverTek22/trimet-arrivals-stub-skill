@@ -10,8 +10,8 @@ class TrimetArrivalsStub(MycroftSkill):
     @intent_handler(IntentBuilder('get.arrivals').one_of('stop.3051', 'stop.11771'))
     def handle_get_arrivals(self, message):
         utterance = message.data.get('utterance')
-	    num = int(extract_number(utterance))
-	    self.speak_dialog('turning', {'num': num})
+	num = int(extract_number(utterance))
+	self.speak_dialog('turning', {'num': num})
     
     
     @intent_handler('stub.arrivals.trimet.intent')
