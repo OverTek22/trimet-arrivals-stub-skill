@@ -9,22 +9,24 @@ class TrimetArrivalsStub(MycroftSkill):
     
     @intent_handler(IntentBuilder('next.arrivals').require('get.arrivals').one_of('stop.3051', 'stop.11771'))
     def handle_get_arrivals(self, message):
+	    self.log.info("next arrivals adept intent")
         utterance = message.data.get('utterance')
-	num = int(extract_number(utterance))
-	self.speak_dialog('speak.string', {'intro': "I heard stop", 'stuff': num})
+        num = int(extract_number(utterance))
+        self.speak_dialog('speak.string', {'intro': "I heard stop", 'stuff': num})
     
     
     @intent_handler('stub.arrivals.trimet.intent')
     def handle_stub_arrivals_trimet(self, message):
+        self.log.info("Stub intent handler used")
         self.speak_dialog('which.stop')
     
     @intent_handler('stop.3051.intent')
     def handle_stop_3051(self, message):
-        
+        self.log.info("Stop 3051 intent handler used")
         self.log.info(message.data.keys())
         
         utterance = message.data.get('utterance')
-	num = int(extract_number(utterance))
+	    num = int(extract_number(utterance))
         self.log.info(num)
         
         # Base url
@@ -106,6 +108,8 @@ class TrimetArrivalsStub(MycroftSkill):
     
     @intent_handler('stop.11771.intent')
     def handle_stop_11771(self, message):
+        self.log.info("Stop 11771 intent handler used")
+        
         # Base url
         url = "https://trimet.org/ride/stop_schedule.html"
         # Using the stop ID passed in, get schedules sorted by destinations
