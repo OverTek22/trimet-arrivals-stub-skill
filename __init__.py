@@ -187,8 +187,6 @@ class TrimetArrivalsStub(MycroftSkill):
             self.speak_dialog('speak.string', {'intro': "The next bus arrives at", 'stuff': bus_lines[BusID]["Arrivals"][0]})
             # self.speak_dialog('stop.11771')
     
-    def stop(self):
-        pass
 
 def create_skill():
     return TrimetArrivalsStub()
