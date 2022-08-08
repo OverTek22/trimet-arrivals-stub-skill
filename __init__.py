@@ -7,7 +7,7 @@ class TrimetArrivalsStub(MycroftSkill):
     def __init__(self):
         MycroftSkill.__init__(self)
     
-    @intent_handler(IntentBuilder('get.arrivals').one_of('stop.3051', 'stop.11771'))
+    @intent_handler(IntentBuilder('next.arrivals').require('get.arrivals').one_of('stop.3051', 'stop.11771'))
     def handle_get_arrivals(self, message):
         utterance = message.data.get('utterance')
 	num = int(extract_number(utterance))
