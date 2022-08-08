@@ -24,7 +24,7 @@ class TrimetArrivalsStub(MycroftSkill):
         self.log.info(message.data.keys())
         
         utterance = message.data.get('utterance')
-	    num = int(extract_number(utterance))
+	num = int(extract_number(utterance))
         self.log.info(num)
         
         # Base url
