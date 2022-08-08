@@ -1,4 +1,5 @@
 from mycroft import MycroftSkill, intent_handler
+from adapt.intent import IntentBuilder
 import requests
 from bs4 import BeautifulSoup
 
@@ -6,12 +7,26 @@ class TrimetArrivalsStub(MycroftSkill):
     def __init__(self):
         MycroftSkill.__init__(self)
     
+    @intent_handler(IntentBuilder('get.arrivals').one_of('stop.3051', 'stop.11771'))
+    def handle_get_arrivals(self, message):
+        utterance = message.data.get('utterance')
+	    num = int(extract_number(utterance))
+	    self.speak_dialog('turning', {'num': num})
+    
+    
     @intent_handler('stub.arrivals.trimet.intent')
     def handle_stub_arrivals_trimet(self, message):
         self.speak_dialog('which.stop')
     
     @intent_handler('stop.3051.intent')
     def handle_stop_3051(self, message):
+        
+        self.log.info(message.data.keys())
+        
+        utterance = message.data.get('utterance')
+	    num = int(extract_number(utterance))
+        self.log.info(num)
+        
         # Base url
         url = "https://trimet.org/ride/stop_schedule.html"
         # Using the stop ID passed in, get schedules sorted by destinations
@@ -167,7 +182,9 @@ class TrimetArrivalsStub(MycroftSkill):
             # Example of user asking for line 47
             self.speak_dialog('speak.string', {'intro': "The next bus arrives at", 'stuff': bus_lines[BusID]["Arrivals"][0]})
             # self.speak_dialog('stop.11771')
-
+    
+    def stop(self):
+        pass
 
 def create_skill():
     return TrimetArrivalsStub()
