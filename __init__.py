@@ -53,8 +53,11 @@ class TrimetArrivalsStub(MycroftSkill):
         BusID = list(bus_lines.keys())[0]
         # Example of user asking for line 47
         self.speak(bus_lines[BusID]["ID"], wait=True)
+        self.log.info(bus_lines[BusID]["ID"])
         self.speak(bus_lines[BusID]["Description"],wait=True)
+        self.log.info(bus_lines[BusID]["Description"])
         self.speak_dialog('speak.string', {'intro': "The bus arrives at these times", 'stuff': bus_lines[BusID]["Arrivals"]}, wait=True)
+        self.log.info(bus_lines[BusID]["Arrivals"])
         '''
         self.log.info("Getting alerts")# Get the alerts from the website as well
         try:
