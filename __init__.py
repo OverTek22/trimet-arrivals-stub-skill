@@ -12,8 +12,8 @@ class TrimetArrivalsStub(MycroftSkill):
         #utterance = message.data.get('stopid_message')
         #num = re.findall('[0-9]+', utterance)
         self.log.info(stopid)
-        self.speak("I heard:")
-        self.speak(stopid)
+        #self.speak("I heard:")
+        #self.speak(stopid)
         
         # Base url
         url = "https://trimet.org/ride/stop_schedule.html"
@@ -52,7 +52,9 @@ class TrimetArrivalsStub(MycroftSkill):
         
         BusID = list(bus_lines.keys())[0]
             # Example of user asking for line 47
-            self.speak_dialog('speak.string', {'intro': "The next bus arrives at", 'stuff': bus_lines[BusID]["Arrivals"][0]})
+            self.speak(bus_lines[BusID]["ID"], wait=True)
+            self.speak(bus_lines[BusID]["Description"],wait=True)
+            self.speak_dialog('speak.string', {'intro': "The next bus arrives at", 'stuff': bus_lines[BusID]["Arrivals"]}, wait=True)
             # self.speak_dialog('stop.11771')
         '''
         self.log.info("Getting alerts")# Get the alerts from the website as well
