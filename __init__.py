@@ -14,7 +14,7 @@ class TrimetArrivalsStub(MycroftSkill):
     def handle_stop_3051(self, message):
         self.log.info(message.data.keys())
         utterance = message.data.get('utterance')
-        num = int(isdigit(utterance))
+        num = int(utterance.isdigit())
         self.log.info(num)
         
         self.speak("I heard")
