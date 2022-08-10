@@ -9,11 +9,11 @@ class TrimetArrivalsStub(MycroftSkill):
     @intent_handler('stub.arrivals.trimet.intent')
     def handle_stub_arrivals_trimet(self, message):
         stopid_message = self.get_response('which.stop')
-        utterance = message.data.get('stopid_message')
-        num = re.findall('[0-9]+', utterance)
-        self.log.info(num[0])
+        #utterance = message.data.get('stopid_message')
+        #num = re.findall('[0-9]+', utterance)
+        self.log.info(stopid_message)
         self.speak("I heard:")
-        self.speak(num[0])
+        self.speak(stopid_message)
     
     @intent_handler('stop.3051.intent')
     def handle_stop_3051(self, message):
