@@ -1,5 +1,6 @@
 from mycroft import MycroftSkill, intent_handler
 import requests
+import re
 from bs4 import BeautifulSoup
 class TrimetArrivalsStub(MycroftSkill):
     def __init__(self):
@@ -13,7 +14,7 @@ class TrimetArrivalsStub(MycroftSkill):
     def handle_stop_3051(self, message):
         self.log.info(message.data.keys())
         utterance = message.data.get('utterance')
-        num = int(''.join(filter(str.isdigit,(utterance))))
+        num = int(isdigit(utterance))
         self.log.info(num)
         
         self.speak("I heard")
