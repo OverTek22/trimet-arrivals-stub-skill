@@ -12,6 +12,14 @@ class TrimetArrivalsStub(MycroftSkill):
     @intent_handler('stop.3051.intent')
     def handle_stop_3051(self, message):
         self.log.info(message.data.keys())
+        utterance = message.data.get('utterance')
+        num = int(extract_number(utterance))
+        num = int(extract_number(utterance))
+        self.log.info(num)
+        
+        self.speak("I heard")
+        self.speak(num)
+        
         # Base url
         url = "https://trimet.org/ride/stop_schedule.html"
         # Using the stop ID passed in, get schedules sorted by destinations
